@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 95vh;
+    margin: 0;
+    color: #333;
+}
+.calculator-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 300px;
+    width: 80%;
+    margin: auto;
+}
+h2 {
+    margin-bottom: 20px;
+}
+input[type="number"] {
+    padding: 12px;
+    margin: 10px 0;
+    width: 80%;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+button {
+    padding: 12px;
+    width: 100%;
+    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-image 0.3s ease;/
+}
+button:hover {
+    background-image: linear-gradient(to right, #3bd670 0%, #33e2c2 100%); /
+}
+
+button:active {
+    background-image: linear-gradient(to right, #2f9656 0%, #2bbd9c 100%); /
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 22px;
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+}
+footer a {
+    color: #333;
+    text-decoration: none;
+}
