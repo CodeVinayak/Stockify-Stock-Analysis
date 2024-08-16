@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background-image: linear-gradient(to right, #f9d423 0%, #ff4e50 100%);
+            background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,6 +23,16 @@
         h1,
         h2 {
             text-align: center;
+        }
+
+        .profit {
+            color: darkgreen;
+        }
+        .loss {
+            color: red;
+        }
+        .neutral {
+            color: #FFD700; /* Yellow */
         }
 
         /* Styling the file input and button */
@@ -57,6 +67,7 @@
         table {
             width: 80%;
             margin-top: 20px;
+            margin-bottom: 20px;
             border-collapse: collapse;
             background-color: white;
             color: #333;
@@ -89,13 +100,11 @@
 
     </style>
 </head>
-
 <body>
     <h1>Upload CSV File</h1>
     <input type="file" id="csvFileInput" accept=".csv" />
     <button onclick="loadCSV()">Upload and Show Data</button>
 
-    <h2>CSV Data:</h2>
     <table id="csvTable"></table>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
@@ -118,12 +127,26 @@
             }
         }
 
+        function calculateProfitLoss(currentPrice, buyBackPrice) {
+            const difference = buyBackPrice - currentPrice;
+            const percentage = (difference / currentPrice) * 100;
+            
+            if (difference > 0) {
+                return { value: percentage.toFixed(2), class: 'profit' };
+            } else if (difference < 0) {
+                return { value: percentage.toFixed(2), class: 'loss' };
+            } else {
+                return { value: '0.00', class: 'neutral' };
+            }
+        }
+
         function displayTable(data) {
             const table = document.getElementById('csvTable');
             table.innerHTML = '';
 
             // Filter out headers with "Compare"
             const headers = Object.keys(data[0]).filter(header => !header.includes('Compare'));
+            headers.push('Profit / Loss %'); // Add new column header
 
             // Create the table headers
             const headerRow = document.createElement('tr');
@@ -134,12 +157,20 @@
             });
             table.appendChild(headerRow);
 
-            // Create table rows for each entry, excluding "Compare" columns
+            // Create table rows for each entry
             data.forEach(row => {
                 const tr = document.createElement('tr');
                 headers.forEach(header => {
                     const td = document.createElement('td');
-                    td.textContent = row[header];
+                    if (header === 'Profit / Loss %') {
+                        const currentPrice = parseFloat(row['Current Market Price']);
+                        const buyBackPrice = parseFloat(row['BuyBack price (Per Share)']);
+                        const result = calculateProfitLoss(currentPrice, buyBackPrice);
+                        td.textContent = `${result.value}%`;
+                        td.className = result.class;
+                    } else {
+                        td.textContent = row[header];
+                    }
                     td.setAttribute('data-label', header);
                     tr.appendChild(td);
                 });
