@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit/Loss Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 95vh;
+            margin: 0;
+            color: #333;
+        }
+        .calculator-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 300px;
+            width: 80%;
+            margin: auto;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            padding: 12px;
+            margin: 10px 0;
+            width: 80%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px;
+            width: 100%;
+            background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 100%;
+        }
+        footer a {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator-container">
+        <h2>Profit/Loss Calculator</h2>
+        <input type="number" id="currentPrice" placeholder="Enter Current Price">
+        <input type="number" id="buyBackPrice" placeholder="Enter Buyback Price">
+        <button onclick="calculateProfitLoss()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <footer>
+        Developed by <strong>Vinayak Kumar Singh</strong> - 
+        <a href="https://github.com/CodeVinayak/Profit-Loss-Calculator" target="_blank">GitHub Project</a>
+    </footer>
+
+    <script>
+        function calculateProfitLoss() {
+            const currentPrice = parseFloat(document.getElementById('currentPrice').value);
+            const buyBackPrice = parseFloat(document.getElementById('buyBackPrice').value);
+
+            if (isNaN(currentPrice) || isNaN(buyBackPrice)) {
+                document.getElementById('result').textContent = "Please enter valid numbers!";
+                return;
+            }
+
+            const difference = buyBackPrice - currentPrice;
+            const percentage = (difference / currentPrice) * 100;
+
+            if (difference > 0) {
+                document.getElementById('result').textContent = `Profit: ${percentage.toFixed(2)}%`;
+            } else if (difference < 0) {
+                document.getElementById('result').textContent = `Loss: ${Math.abs(percentage).toFixed(2)}%`;
+            } else {
+                document.getElementById('result').textContent = "No Profit, No Loss.";
+            }
+        }
+    </script>
+
+</body>
+</html>
