@@ -1,38 +1,42 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-import time
+import requests
+from bs4 import BeautifulSoup
 
-# Chrome options to automatically download files without prompt
-chrome_options = Options()
-chrome_options.add_experimental_option('prefs', {
-    "download.default_directory": r"C:\path\to\your\directory",  # Change this to your preferred download location
-    "download.prompt_for_download": False,
-    "download.directory_upgrade": True,
-    "safebrowsing.enabled": True
-})
+# URL of the page with the download button
+url = "https://www.chittorgarh.com/report/latest-buyback-issues-in-india/80/tender-and-open-market-buyback/"
 
-# Set path to ChromeDriver
-service = Service('path_to_chromedriver')  # Replace with your ChromeDriver path
+# Step 1: Fetch the page content
+response = requests.get(url,verify=False)
 
-# Initialize the WebDriver
-driver = webdriver.Chrome(service=service, options=chrome_options)
-
-try:
-    # Go to the website
-    driver.get("https://www.chittorgarh.com/report/latest-buyback-issues-in-india/80/tender-and-open-market-buyback/")
-
-    # Allow the page to load
-    time.sleep(5)
-
-    # Find the export button by its ID and click it
-    export_button = driver.find_element(By.ID, "export_btn")
-    export_button.click()
-
-    # Wait for download to complete
-    time.sleep(10)  # Adjust the sleep time depending on download speed
-
-finally:
-    # Close the browser
-    driver.quit()
+if response.status_code == 200:
+    # Step 2: Parse the HTML content
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Step 3: Find the download button using its class
+    download_button = soup.find('a', class_='btn btn-xs btn-secondary mb-2')
+    
+    if download_button:
+        # Extract the href attribute which contains the download URL
+        file_url = download_button.get('href')
+        
+        if file_url:
+            # Make the file URL absolute if it's a relative URL
+            if not file_url.startswith('http'):
+                file_url = 'https://www.chittorgarh.com' + file_url
+            
+            # Step 4: Download the file
+            file_response = requests.get(file_url)
+            
+            # Check if the file was downloaded successfully
+            if file_response.status_code == 200:
+                with open('buyback_data.csv', 'wb') as file:
+                    file.write(file_response.content)
+                
+                print("File downloaded successfully.")
+            else:
+                print(f"Failed to download file. Status code: {file_response.status_code}")
+        else:
+            print("Download URL not found.")
+    else:
+        print("Download button not found.")
+else:
+    print(f"Failed to retrieve the website. Status code: {response.status_code}")
