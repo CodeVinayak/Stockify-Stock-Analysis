@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profit/Loss Calculator</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="/favicon.png">
-    <script src="logic.js"></script>
+    <title>Stock Analytics Tools</title>
+    <link rel="stylesheet" href="homestyles.css">
 </head>
 <body>
+    <div class="container">
+        <div class="box percentage-calculator" onclick="openPercentageCalculator()">
+            <h2>Percentage Calculator</h2>
+            <p>Calculate percentage changes in stock prices.</p>
+        </div>
 
-    <div class="calculator-container">
-        <h2>Profit/Loss Calculator</h2>
-        <input type="number" id="currentPrice" placeholder="Enter Current Price">
-        <input type="number" id="buyBackPrice" placeholder="Enter Buyback Price">
-        <button onclick="calculateProfitLoss()">Calculate</button>
-        <div class="result" id="result"></div>
+        <div class="box buyback-advice" onclick="openBuybackAdvice()">
+            <h2>Buyback Advice</h2>
+            <p>Get expert buyback insights.</p>
+        </div>
+
+        <div class="box garbage1">
+            <h2>Stock Forecast</h2>
+            <p>Random forecast data.</p>
+        </div>
+
+        <div class="box garbage2">
+            <h2>Stock Trends</h2>
+            <p>Placeholder for trends analysis.</p>
+        </div>
     </div>
 
-    <footer>
-        Developed by <strong>Vinayak Kumar Singh</strong> - 
-        <a href="https://github.com/CodeVinayak/Stockify-Stock-Analysis" target="_blank">GitHub Project</a>
-    </footer>
+    <script src="script.js"></script>
 </body>
 </html>

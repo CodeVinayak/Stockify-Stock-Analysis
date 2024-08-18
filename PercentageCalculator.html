@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit/Loss Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <script src="logic.js"></script>
+</head>
+<body>
+
+    <div class="calculator-container">
+        <h2>Profit/Loss Calculator</h2>
+        <input type="number" id="currentPrice" placeholder="Enter Current Price">
+        <input type="number" id="buyBackPrice" placeholder="Enter Buyback Price">
+        <button onclick="calculateProfitLoss()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <footer>
+        Developed by <strong>Vinayak Kumar Singh</strong> - 
+        <a href="https://github.com/CodeVinayak/Stockify-Stock-Analysis" target="_blank">GitHub Project</a>
+    </footer>
+</body>
+</html>
