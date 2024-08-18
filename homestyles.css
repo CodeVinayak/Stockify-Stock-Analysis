@@ -8,9 +8,10 @@ body {
     font-family: Arial, sans-serif;
     background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container {
@@ -56,4 +57,16 @@ p {
 
 .garbage2 {
     background-color: #ff5722;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+}
+footer a {
+    color: #333;
+    text-decoration: none;
 }
