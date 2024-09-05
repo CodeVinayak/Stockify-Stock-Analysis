@@ -6,116 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyback Advice</title>
     <link rel="icon" type="image/x-icon" href="/favicon.png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        h1,
-        h2 {
-            text-align: center;
-        }
-
-        .profit {
-            color: green;
-        }
-
-        .loss {
-            color: red;
-        }
-
-        .neutral {
-            color: #FFD700;
-            /* Yellow */
-        }
-
-        .dont-invest {
-            color: red;
-        }
-
-        .risky {
-            color: #FFD700;
-        }
-
-        .invest {
-            color: green;
-        }
-
-        /* Styling the file input and button */
-        input[type="file"] {
-            margin: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: #f9d423;
-            color: #fff;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #ff4e50;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #f03e41;
-        }
-
-        /* Styling the table */
-        table {
-            width: 80%;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border-collapse: collapse;
-            background-color: white;
-            color: #333;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 12px 15px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #ff4e50;
-            color: white;
-        }
-
-        td {
-            background-color: #f9f9f9;
-        }
-    </style>
+    <link rel="stylesheet" href="Buyback-Advice.css">
 </head>
 
 <body>
-    <h1>Upload Buyback  CSV File</h1>
+    <h1>Upload Buyback CSV File</h1>
     <input type="file" id="csvFileInput" accept=".csv" />
     <button onclick="loadCSV()">Upload and Show Data</button>
 
@@ -149,7 +44,7 @@
             }
             const difference = buyBackPrice - currentPrice;
             const percentage = (difference / currentPrice) * 100;
-            
+
             if (difference > 0) {
                 return { value: percentage.toFixed(2), class: 'profit', percentage: percentage };
             } else if (difference < 0) {
@@ -170,7 +65,7 @@
             const currentPriceInput = document.getElementById(`currentPrice_${index}`);
             const currentPrice = parseFloat(currentPriceInput.value);
             const buyBackPrice = parseFloat(globalData[index]['BuyBack price (Per Share)']);
-            
+
             const result = calculateProfitLoss(currentPrice, buyBackPrice);
             const profitLossCell = document.getElementById(`profitLoss_${index}`);
             profitLossCell.textContent = `${result.value}%`;
